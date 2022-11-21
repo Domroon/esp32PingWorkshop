@@ -111,7 +111,6 @@ class Matrix:
         
     def clear(self):
         self.np.fill((0, 0, 0))
-        self.np.write()
 
 
 def main():
