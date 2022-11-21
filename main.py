@@ -174,10 +174,10 @@ def main():
     
     
     spriteGroup = SpriteGroup()
-    spriteGroup.add(t_letter)
     spriteGroup.add(point)
     spriteGroup.add(h_letter)
     spriteGroup.add(christ_tree)
+    spriteGroup.add(t_letter)
     
     matrix = Matrix(pin, [spriteGroup.sprites])
     
