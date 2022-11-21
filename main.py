@@ -63,6 +63,16 @@ class Sprite:
                 x += 1
             y += 1
     
+    def read_pixels_from_file(self):
+        file = open('christmas_tree.pixels')
+        row = []
+        for line in file:
+            string_line = line[1:-3]
+            list_len = len(string_line.split('], '))
+            for splitted_line in string_line.split('], '):
+                print(splitted_line[0])
+        file.close()
+    
     def change_all_color(self):
         pass
     
@@ -189,6 +199,7 @@ def main():
     christ_tree_2 = Sprite()
     # test.add_colored_pixels(test_matrix)
     christ_tree_2.add_colored_pixels(christmas_tree_2_matrix)
+    christ_tree_2.read_pixels_from_file()
 
     t_letter.add_pixels(t_pix)
     h_letter = Sprite()
