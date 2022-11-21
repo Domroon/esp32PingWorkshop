@@ -1,4 +1,4 @@
-- [ ] implement brightness parameter in Pixel Objects (maybe a max value for r, g, b instead a multiplicator?)
+- [x] implement brightness parameter for Pixel Objects (maybe a max value for r, g, b instead a multiplicator?)
 - [ ] implement add_colored_pixels
 - [ ] implement change_all_color
 - [ ] add a sign dict with pixel-graphics for all letter and digits (upper-case and lower case?)

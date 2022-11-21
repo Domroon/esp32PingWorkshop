@@ -4,14 +4,31 @@ import time
 
 
 class Pixel:
-    def __init__(self, id, x, y, color=[10, 10, 10], brightness=1):
+    def __init__(self, id, x, y, color=[255, 0, 255], brightness=0.15):
         self.id = id
         self.color = color
+        self.origin_color = color
         self.brightness = brightness
         self.x = x
         self.y = y
         self.origin_x = x
         self.origin_y =y
+        self._calculate_brightness()
+        print(self.color)
+
+    def _calculate_brightness(self):
+        calculated_color = []
+        for value in self.origin_color:
+            value = int(value * self.brightness)
+            calculated_color.append(value)
+        self.color = calculated_color
+
+    def change_brightness(self, brightness):
+        calculated_color = []
+        for value in self.origin_color:
+            value = int(value * brightness)
+            calculated_color.append(value)
+        self.color = calculated_color
 
 
 class Sprite:
@@ -52,6 +69,10 @@ class Sprite:
         for pixel in self.pixels:
             pixel.x = pixel.x + self.x
             pixel.y = pixel.y + self.y
+
+    def change_brightness(self, brightness):
+        for pixel in self.pixels:
+            pixel.change_brightness(brightness)
 
 
 class SpriteGroup:
@@ -141,19 +162,27 @@ def main():
     
     tick = 0.1
     try:
+        brightness = 0.05
+        t_letter.change_brightness(brightness)
+        for _ in range(0, 10):
+            matrix.show()
+            t_letter.change_brightness(brightness)
+            brightness = brightness + 0.05
+            time.sleep(0.5)
+            matrix.clear()
         while True:
-           for _ in range(1, 16):
-               matrix.show()
-               point.move(1, 0)
-               t_letter.move(1, 1)
-               time.sleep(tick)
-               matrix.clear()
-           for _ in range(1, 16):
-               matrix.show()
-               point.move(-1, 0)
-               t_letter.move(-1, -1)
-               time.sleep(tick)
-               matrix.clear() # improvement: only clear a single object!
+            for _ in range(1, 16):
+                matrix.show()
+                point.move(1, 0)
+                t_letter.move(1, 1)
+                time.sleep(tick)
+                matrix.clear()
+            for _ in range(1, 16):
+                matrix.show()
+                point.move(-1, 0)
+                t_letter.move(-1, -1)
+                time.sleep(tick)
+                matrix.clear() # improvement: only clear a single object!
     except KeyboardInterrupt:
         matrix.clear()
        
