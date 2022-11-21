@@ -52,8 +52,17 @@ class Sprite:
                 x += 1
             y += 1
     
-    def add_colored_pixels(self):
-        pass
+    def add_colored_pixels(self, color_array):
+        self.pixels = []
+        y = 0
+        for row in color_array:
+            x = 0
+            for value in row:
+                if value:
+                    pixel = Pixel(self.id, x, y, color=color_array[y][x])
+                    self.pixels.append(pixel)
+                x += 1
+            y += 1
     
     def change_all_color(self):
         pass
@@ -145,18 +154,30 @@ def main():
              [1,1,1],
              [1,0,1],
             ]
+
+    christmas = [[[0, 0, 0],[0, 0, 0],[255, 0, 0],[0, 0, 0],[0, 0, 0]],
+                 [[0, 0, 0],[51, 255, 0],[51, 255, 0],[51, 255, 0],[0, 0, 0]],
+                 [[51, 255, 0],[51, 255, 0],[51, 255, 0],[51, 255, 0],[51, 255, 0]],
+                 [[0, 0, 0],[0, 0, 0],[153, 51, 0],[0, 0, 0],[0, 0, 0]],
+                 [[0, 0, 0],[0, 0, 0],[153, 51, 0],[0, 0, 0],[0, 0, 0]],
+            ]
+
     point = Sprite()
     t_letter = Sprite()
+    christ_tree = Sprite()
     t_letter.add_pixels(t_pix)
     h_letter = Sprite()
     h_letter.add_pixels(h_pix)
     h_letter.set_pos(10, 10)
+    christ_tree.add_colored_pixels(christmas)
+    christ_tree.set_pos(0 ,10)
     
     
     spriteGroup = SpriteGroup()
     spriteGroup.add(t_letter)
     spriteGroup.add(point)
     spriteGroup.add(h_letter)
+    spriteGroup.add(christ_tree)
     
     matrix = Matrix(pin, [spriteGroup.sprites])
     
