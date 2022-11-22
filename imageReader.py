@@ -37,9 +37,9 @@ def calculate_sizes(pillow_img, qty_art_pixel_col):
 
 
 def main():
-    qty_art_pixel_row = 16
-    qty_art_pixel_col = 16
-    filename = 'super_mario_4'
+    qty_art_pixel_row = 5
+    qty_art_pixel_col = 5
+    filename = 'Z'
 
     with Image.open(IMAGE_PATH / f'{filename}.png') as im:
         # check for multilayer picture (rgb)
