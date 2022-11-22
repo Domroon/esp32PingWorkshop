@@ -63,15 +63,23 @@ class Sprite:
                 x += 1
             y += 1
     
-    def read_pixels_from_file(self):
-        file = open('christmas_tree.pixels')
+    def read_pixels_from_file(self, filename):
+        file = open(filename)
         row = []
+        color_array = []
         for line in file:
-            string_line = line[1:-3]
-            list_len = len(string_line.split('], '))
-            for splitted_line in string_line.split('], '):
-                print(splitted_line[0])
+            row = line.split(';')
+            del row[-1]
+            new_row = []
+            for value in row:
+                rgb_list = []
+                value_list = value[1:-1].split(',')
+                for rgb_value in value_list:
+                    rgb_list.append(int(rgb_value))
+                new_row.append(rgb_list)
+            color_array.append(new_row)
         file.close()
+        self.add_colored_pixels(color_array)
     
     def change_all_color(self):
         pass
@@ -173,59 +181,43 @@ def main():
 
     
     
-    christmas_tree_2_matrix = [
-        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [71, 255, 0], [71, 255, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [255, 0, 0], [71, 255, 0], [71, 255, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [71, 255, 0], [255, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [255, 0, 0], [71, 255, 0], [71, 255, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [255, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [255, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [71, 255, 0], [71, 255, 0], [255, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [255, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [71, 255, 0], [255, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [255, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [255, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [0, 0, 0]],
-        [[0, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [71, 255, 0], [71, 255, 0], [0, 0, 0], [0, 0, 0], [174, 92, 0], [174, 92, 0], [0, 0, 0], [71, 255, 0], [71, 255, 0], [71, 255, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [174, 92, 0], [174, 92, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [174, 92, 0], [174, 92, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
-    ]
+    
 
-    point = Sprite()
-    t_letter = Sprite()
-    christ_tree = Sprite()
-    test = Sprite()
+#     point = Sprite()
+#     t_letter = Sprite()
+#     christ_tree = Sprite()
+#     test = Sprite()
     christ_tree_2 = Sprite()
     # test.add_colored_pixels(test_matrix)
-    christ_tree_2.add_colored_pixels(christmas_tree_2_matrix)
-    christ_tree_2.read_pixels_from_file()
+    # christ_tree_2.add_colored_pixels(christmas_tree_2_matrix)
+    christ_tree_2.read_pixels_from_file('super_mario_4.pixels')
+    christ_tree_2.change_brightness(0.1)
 
-    t_letter.add_pixels(t_pix)
-    h_letter = Sprite()
-    h_letter.add_pixels(h_pix)
-    h_letter.set_pos(10, 10)
-    christ_tree.add_colored_pixels(christmas)
-    christ_tree.set_pos(0 ,10)
+#     t_letter.add_pixels(t_pix)
+#     h_letter = Sprite()
+#     h_letter.add_pixels(h_pix)
+#     h_letter.set_pos(10, 10)
+#     christ_tree.add_colored_pixels(christmas)
+#     christ_tree.set_pos(0 ,10)
     
     
     spriteGroup = SpriteGroup()
     spriteGroup.add(christ_tree_2)
     # spriteGroup.add(test)
-    spriteGroup.add(point)
+    #spriteGroup.add(point)
     #spriteGroup.add(h_letter)
     #spriteGroup.add(christ_tree)
-    spriteGroup.add(t_letter)
+    #spriteGroup.add(t_letter)
     
     matrix = Matrix(pin, [spriteGroup.sprites])
     
     tick = 0.1
     try:
         brightness = 0.05
-        t_letter.change_brightness(brightness)
+#         t_letter.change_brightness(brightness)
         for _ in range(0, 10):
             matrix.show()
-            t_letter.change_brightness(brightness)
+#             t_letter.change_brightness(brightness)
             brightness = brightness + 0.05
             time.sleep(0.5)
             matrix.clear()
