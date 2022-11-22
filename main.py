@@ -4,7 +4,7 @@ import time
 
 
 class Pixel:
-    def __init__(self, id, x, y, color=[255, 0, 255], brightness=0.15):
+    def __init__(self, id, x, y, color=[255, 0, 255], brightness=0.1):
         self.id = id
         self.color = color
         self.origin_color = color
@@ -161,83 +161,30 @@ class Matrix:
 
 
 def main():
+    
     pin = Pin(33, Pin.OUT)
-    
-    t_pix = [[1,1,1],
-             [0,1,0],
-             [0,1,0],
-            ]
-    h_pix = [[1,0,1],
-             [1,1,1],
-             [1,0,1],
-            ]
 
-    christmas = [[[0, 0, 0],[0, 0, 0],[255, 0, 0],[0, 0, 0],[0, 0, 0]],
-                 [[0, 0, 0],[51, 255, 0],[51, 255, 0],[51, 255, 0],[0, 0, 0]],
-                 [[51, 255, 0],[51, 255, 0],[51, 255, 0],[51, 255, 0],[51, 255, 0]],
-                 [[0, 0, 0],[0, 0, 0],[153, 51, 0],[0, 0, 0],[0, 0, 0]],
-                 [[0, 0, 0],[0, 0, 0],[153, 51, 0],[0, 0, 0],[0, 0, 0]],
-            ]
+    sprite = Sprite()
+    sprite.read_pixels_from_file('pixels_data/0.pixels')
 
-    
-    
-    
-
-#     point = Sprite()
-#     t_letter = Sprite()
-#     christ_tree = Sprite()
-#     test = Sprite()
-    christ_tree_2 = Sprite()
-    # test.add_colored_pixels(test_matrix)
-    # christ_tree_2.add_colored_pixels(christmas_tree_2_matrix)
-    christ_tree_2.read_pixels_from_file('super_mario_4.pixels')
-    christ_tree_2.change_brightness(0.1)
-
-#     t_letter.add_pixels(t_pix)
-#     h_letter = Sprite()
-#     h_letter.add_pixels(h_pix)
-#     h_letter.set_pos(10, 10)
-#     christ_tree.add_colored_pixels(christmas)
-#     christ_tree.set_pos(0 ,10)
-    
-    
     spriteGroup = SpriteGroup()
-    spriteGroup.add(christ_tree_2)
-    # spriteGroup.add(test)
-    #spriteGroup.add(point)
-    #spriteGroup.add(h_letter)
-    #spriteGroup.add(christ_tree)
-    #spriteGroup.add(t_letter)
+    spriteGroup.add(sprite)
     
     matrix = Matrix(pin, [spriteGroup.sprites])
     
     tick = 0.1
     try:
-        brightness = 0.05
-#         t_letter.change_brightness(brightness)
-        for _ in range(0, 10):
-            matrix.show()
-#             t_letter.change_brightness(brightness)
-            brightness = brightness + 0.05
-            time.sleep(0.5)
-            matrix.clear()
+        signs = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
         while True:
-            for _ in range(1, 16):
+            for sign in signs:
+                sprite.read_pixels_from_file('pixels_data/' + sign + '.pixels')
                 matrix.show()
-                point.move(1, 0)
-                t_letter.move(1, 1)
+                time.sleep(0.2)
                 time.sleep(tick)
                 matrix.clear()
-            for _ in range(1, 16):
-                matrix.show()
-                point.move(-1, 0)
-                t_letter.move(-1, -1)
-                time.sleep(tick)
-                matrix.clear() # improvement: only clear a single object!
     except KeyboardInterrupt:
         matrix.clear()
        
-    
     
 if __name__ == '__main__':
     main()
