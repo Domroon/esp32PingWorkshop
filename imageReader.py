@@ -39,9 +39,12 @@ def calculate_sizes(pillow_img, qty_art_pixel_col):
 def main():
     qty_art_pixel_row = 16
     qty_art_pixel_col = 16
-    filename = 'christmas_tree'
+    filename = 'super_mario_4'
 
     with Image.open(IMAGE_PATH / f'{filename}.png') as im:
+        # check for multilayer picture (rgb)
+        if type(im.getpixel((0, 0))) == int:
+            im = im.convert('RGB')
         width, height, pixel_resolution, center_offset = calculate_sizes(im, qty_art_pixel_col)
         print("width", width)
         print("height", height)
@@ -65,8 +68,6 @@ def main():
                 for value in row:
                     file.write(f'{str(value)};')
                 file.write('\n')
-
-    test_read_pixels_from_file()
 
 
 if __name__ == '__main__':
