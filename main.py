@@ -81,8 +81,15 @@ class Sprite:
         file.close()
         self.add_colored_pixels(color_array)
     
-    def change_all_color(self):
-        pass
+    def change_all_color(self, new_color):
+        pixel_list = self.pixels
+        self.pixels = []
+        for pixel in pixel_list:
+            if pixel.color == [0, 0, 0]:
+                self.pixels.append(pixel)
+            else:
+                pixel.color = new_color
+                self.pixels.append(pixel)
     
     def set_pos(self, x, y):
         for pixel in self.pixels:
@@ -166,6 +173,7 @@ def main():
 
     sprite = Sprite()
     sprite.read_pixels_from_file('pixels_data/0.pixels')
+    sprite.change_all_color((100, 0, 0))
 
     spriteGroup = SpriteGroup()
     spriteGroup.add(sprite)
@@ -178,6 +186,7 @@ def main():
         while True:
             for sign in signs:
                 sprite.read_pixels_from_file('pixels_data/' + sign + '.pixels')
+                sprite.change_all_color((100, 0, 0))
                 matrix.show()
                 time.sleep(0.2)
                 time.sleep(tick)
