@@ -165,6 +165,7 @@ class Matrix:
         
     def clear(self):
         self.np.fill((0, 0, 0))
+        self.np.write()
 
 
 def main():
@@ -190,7 +191,6 @@ def main():
                 matrix.show()
                 time.sleep(0.2)
                 time.sleep(tick)
-                matrix.clear()
     except KeyboardInterrupt:
         matrix.clear()
        
